@@ -8,7 +8,7 @@
       <e p="Assets" t="Include">
         <e p="Materials" t="Include">
           <e p="Shaders" t="Include">
-            <e p="head.shader" t="Include" />
+            <e p="UniformColor.shader" t="Include" />
           </e>
         </e>
         <e p="Scripts" t="Include">
