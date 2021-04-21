@@ -24,7 +24,7 @@ public class GameBoard : MonoBehaviour
         Restart();
     }
 
-    public void OnSnakeEnter(Vector2Int position, Snake snake)
+    public void OnSnakeEnterTile(Vector2Int position, Snake snake)
     {
         if (!IsPositionCorrect(position))
             return;
@@ -64,7 +64,7 @@ public class GameBoard : MonoBehaviour
             tile.ContainsFoodReflected = false;
             SpawnFoodReflected();
             snake.DecreaseLength(1);
-            SpawnFoodPoisoned(snake.GetLastTailBoardPosition(false));
+            SpawnFoodPoisoned(snake.GetLastTailPos(false));
         }
 
         if (tileReflected.ContainsFoodStandard)
@@ -72,7 +72,7 @@ public class GameBoard : MonoBehaviour
             tileReflected.ContainsFoodStandard = false;
             SpawnFoodStandard();
             snake.DecreaseLength(1);
-            SpawnFoodPoisoned(snake.GetLastTailBoardPosition(true));
+            SpawnFoodPoisoned(snake.GetLastTailPos(true));
         }
         else if (tileReflected.ContainsFoodReflected)
         {

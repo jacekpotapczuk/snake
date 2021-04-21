@@ -53,7 +53,7 @@ public class BoardTile : MonoBehaviour
         set
         {
             isBlocked = value;
-            //tileBlockedVisual.gameObject.SetActive(value);
+            tileBlockedVisual.gameObject.SetActive(value);
         }
     }
 
