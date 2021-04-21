@@ -19,16 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6de1b98a-8322-42b2-bb78-d141d16a9573" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.snake/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.snake/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Menu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Menu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BoardTile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BoardTile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameBoard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameBoard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Snake.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Snake.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
-    </list>
+    <list default="true" id="6de1b98a-8322-42b2-bb78-d141d16a9573" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,21 +62,21 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Food.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MainMenu.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/SnakeHead.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/SnakeTail.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameOverMenu.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Audio.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/AudioManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ScoreFileManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MainMenuSnakeMove.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/MainMenuSnakeMovement.cs" />
         <option value="$PROJECT_DIR$/Assets/Materials/Shaders/Gradient.shader" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/GameStateController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ScoreManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/BoardTile.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameBoard.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Snake.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameStateController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MainMenuSnakeMovement.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ScoreFileManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ScoreManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/SnakeHead.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/SnakeTail.cs" />
       </list>
     </option>
   </component>
@@ -137,7 +128,7 @@
       <option name="presentableId" value="Default" />
       <updated>1618932175036</updated>
       <workItem from="1618932181465" duration="30405000" />
-      <workItem from="1618988111574" duration="31587000" />
+      <workItem from="1618988111574" duration="31904000" />
     </task>
     <task id="LOCAL-00001" summary="set up basic project settings and create basic board with snake">
       <created>1618932825008</created>
@@ -209,7 +200,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619036176046</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="clean up code">
+      <created>1619038965545</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1619038965545</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -240,7 +238,8 @@
     <MESSAGE value="refactor snake head" />
     <MESSAGE value="refactor GameBoard.OnSnakeEnterTile" />
     <MESSAGE value="add main menu, audio, game over screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="add main menu, audio, game over screen" />
+    <MESSAGE value="clean up code" />
+    <option name="LAST_COMMIT_MESSAGE" value="clean up code" />
   </component>
   <component name="WindowStateProjectService">
     <state width="498" height="446" key="SwitcherDM" timestamp="1618958673396">
