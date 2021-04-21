@@ -5,8 +5,11 @@ using UnityEngine;
 public class Snake : MonoBehaviour
 {
     [SerializeField] private GameBoard gameBoard;
-    [SerializeField] private Transform snakeReflection;
 
+
+    [SerializeField] private SnakeHead head;
+    [SerializeField] private SnakeHead headReflected;
+    
     [SerializeField] private SnakeTail tail;
     [SerializeField] private SnakeTail tailReflected;
     
@@ -16,8 +19,9 @@ public class Snake : MonoBehaviour
     [SerializeField, Range(0.05f, 1f)] private float moveTime = 0.125f;
     private float timeTillNextMove;
     
-    private Vector2Int headPos;
-    private Vector2Int headPosReflected;
+    // private Vector2Int headPos;
+    // private Vector2Int headPosReflected;
+    
     private Vector2Int moveDirection = Vector2Int.right;
     private Vector2Int desiredMoveDirection = Vector2Int.right;
     
@@ -33,14 +37,15 @@ public class Snake : MonoBehaviour
     
     public void Restart()
     {
-        headPos = headStartingPos;
-        headPosReflected = GameBoard.GetReflected(headStartingPos);
-        
-        tail.Restart(headPos, moveTime);
-        tailReflected.Restart(headPos, moveTime);
+        head.Position = headStartingPos;
+        headReflected.Position = GameBoard.GetReflected(headStartingPos);
         
         moveDirection = Vector2Int.right;
         desiredMoveDirection = Vector2Int.right;
+        
+        tail.Restart(head.Position, moveTime);
+        tailReflected.Restart(headReflected.Position, moveTime);
+        
         timeTillNextMove = moveTime;
         
         // todo: score do osobnego pliku?
@@ -89,20 +94,21 @@ public class Snake : MonoBehaviour
         timeTillNextMove -= Time.deltaTime;
         if (timeTillNextMove <= 0) // move between tiles
         {
-            headPos += moveDirection;
-            headPosReflected -= moveDirection;
+            head.Position += moveDirection;
+            headReflected.Position -= moveDirection;
+            
             moveDirection = desiredMoveDirection;
             timeTillNextMove = moveTime + timeTillNextMove;
             
-            gameBoard.OnSnakeEnterTile(headPos + moveDirection, this);
-            tail.AddPositionToTail(headPos);
-            tailReflected.AddPositionToTail(headPosReflected);
+            gameBoard.OnSnakeEnterTile(head.Position + moveDirection, this);
+            
+            tail.AddPositionToTail(head.Position);
+            tailReflected.AddPositionToTail(headReflected.Position);
         }
 
-        float movePercent = (moveTime - timeTillNextMove) / moveTime;
-        
-        transform.localPosition = new Vector3(headPos.x, headPos.y, 0f) + movePercent * new Vector3(moveDirection.x, moveDirection.y, 0f);
-        snakeReflection.localPosition = new Vector3(headPosReflected.x, headPosReflected.y, 0f) - movePercent * new Vector3(moveDirection.x, moveDirection.y, 0f);
+        float t = (moveTime - timeTillNextMove) / moveTime;
+        head.LerpInDirection(moveDirection, t);
+        headReflected.LerpInDirection(-moveDirection, t);
     }
 
     public void OnTileLeave(Vector2Int position)

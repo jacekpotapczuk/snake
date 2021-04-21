@@ -30,6 +30,7 @@ public class SnakeTail : MonoBehaviour
     private void Awake()
     {
         trailRenderer = GetComponent<TrailRenderer>();
+        positions = new List<Vector2Int>(); // todo: upewnic sie czy potrzebne
     }
     
     private void OnDrawGizmos()
