@@ -6,37 +6,29 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI lengthText;
-    
-    private int currentScore;
 
-    public bool IsBest
-    {
-        get
-        {
-            return currentScore > ScoreFileManager.Instance.Score;
-        }
-    }
+    public bool IsBest => Score > ScoreFileManager.Instance.Score;
 
-    public int Score => currentScore;
+    public int Score { get; private set; }
 
     public int BestScore => ScoreFileManager.Instance.Score;
 
     public void SaveScore()
     {
         if(IsBest)
-            ScoreFileManager.Instance.SaveScore(currentScore);
+            ScoreFileManager.Instance.SaveScore(Score);
     }
     
     public void Restart()
     {
-        currentScore = 0;
-        scoreText.text = currentScore.ToString();
+        Score = 0;
+        scoreText.text = Score.ToString();
     }
 
     public void AddToCurrentScore(int amount)
     {
-        currentScore += amount;
-        scoreText.text = currentScore.ToString();
+        Score += amount;
+        scoreText.text = Score.ToString();
     }
 
     public void UpdateCurrentLength(int length)

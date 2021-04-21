@@ -13,10 +13,7 @@ public class SnakeTail : MonoBehaviour
     
     public int Length
     {
-        get
-        {
-            return length;
-        }
+        get => length;
         set
         {
             length = value;
@@ -30,7 +27,7 @@ public class SnakeTail : MonoBehaviour
     private void Awake()
     {
         trailRenderer = GetComponent<TrailRenderer>();
-        positions = new List<Vector2Int>(); // todo: upewnic sie czy potrzebne
+        positions = new List<Vector2Int>();
 
     }
     
@@ -52,8 +49,7 @@ public class SnakeTail : MonoBehaviour
         
         this.moveTime = moveTime;
         length = 0;
-
-        // TODO: znalezc sposob na reset renderera, aby nie bylo glitchy
+        
         trailRenderer.time = -1f;
 
         UpdateTrailRenderer();

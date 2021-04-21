@@ -20,17 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6de1b98a-8322-42b2-bb78-d141d16a9573" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.snake/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.snake/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.snake/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.snake/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Food Poisoned.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Food Poisoned.prefab.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Menu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Menu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BoardTile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BoardTile.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameBoard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameBoard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Snake.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Snake.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SnakeTail.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SnakeTail.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +48,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainMenuSnakeMovement.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameStateController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/SnakeHead.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://D:/unity_projects/snake/Assets/Scenes/Game.unity" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScoreManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainMenuSnakeMove.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://D:/unity_projects/snake/Assets/Prefabs/Board Tile.prefab" root0="SKIP_HIGHLIGHTING" />
@@ -74,19 +72,19 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/MainMenu.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/SnakeHead.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/BoardTile.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/SnakeTail.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameOverMenu.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Audio.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ScoreManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/AudioManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ScoreFileManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/GameBoard.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/GameStateController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MainMenuSnakeMove.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MainMenuSnakeMovement.cs" />
         <option value="$PROJECT_DIR$/Assets/Materials/Shaders/Gradient.shader" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameStateController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ScoreManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/BoardTile.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameBoard.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Snake.cs" />
       </list>
     </option>
@@ -103,6 +101,14 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../buildy/SNAKE/snake.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="D:\unity_projects\buildy\SNAKE" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
@@ -131,7 +137,7 @@
       <option name="presentableId" value="Default" />
       <updated>1618932175036</updated>
       <workItem from="1618932181465" duration="30405000" />
-      <workItem from="1618988111574" duration="30446000" />
+      <workItem from="1618988111574" duration="31587000" />
     </task>
     <task id="LOCAL-00001" summary="set up basic project settings and create basic board with snake">
       <created>1618932825008</created>
@@ -196,7 +202,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619005239123</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="add main menu, audio, game over screen">
+      <created>1619036176046</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1619036176046</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,17 +239,18 @@
     <MESSAGE value="refactor snake tile" />
     <MESSAGE value="refactor snake head" />
     <MESSAGE value="refactor GameBoard.OnSnakeEnterTile" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor GameBoard.OnSnakeEnterTile" />
+    <MESSAGE value="add main menu, audio, game over screen" />
+    <option name="LAST_COMMIT_MESSAGE" value="add main menu, audio, game over screen" />
   </component>
   <component name="WindowStateProjectService">
     <state width="498" height="446" key="SwitcherDM" timestamp="1618958673396">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1618958673396" />
-    <state x="2679" y="286" key="Vcs.Push.Dialog.v2" timestamp="1618964784368">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="759" y="286" key="Vcs.Push.Dialog.v2" timestamp="1619036178316">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="759" y="286" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1618943497178" />
+    <state x="759" y="286" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619036178316" />
     <state x="2679" y="286" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1618964784368" />
   </component>
 </project>

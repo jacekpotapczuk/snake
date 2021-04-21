@@ -1,14 +1,10 @@
-using System;
 using UnityEngine;
 
 public class SnakeHead : MonoBehaviour
 {
     public Vector2Int Position
     {
-        get
-        {
-            return position;
-        }
+        get => position;
         set
         {
             position = value;
@@ -25,36 +21,4 @@ public class SnakeHead : MonoBehaviour
 
         transform.localPosition =  a + t * dir;
     }
-
-    // public Vector2Int MoveDirection
-    // {
-    //     get => moveDirection;
-    //     set
-    //     {
-    //         bool isValid = value == Vector2Int.up || value == Vector2Int.down || value == Vector2Int.left ||
-    //                        value == Vector2Int.right;
-    //         if (!isValid)
-    //         {
-    //             Debug.LogError("Given move direction is not valid.");
-    //             return;
-    //         }
-    //
-    //         moveDirection = value;
-    //     }
-    // }
-
-    // private Vector2Int moveDirection;
-
-    // public void SetPosition(Vector2Int newPos)
-    // {
-    //     Position = newPos;
-    //     SetPosition(new Vector3(newPos.x, newPos.y, 0f));
-    // }
-    //
-    // private void SetPosition(Vector3 position)
-    // {
-    //     transform.localPosition = position;
-    // }
-
-
 }

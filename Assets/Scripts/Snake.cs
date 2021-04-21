@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Snake : MonoBehaviour
@@ -23,7 +22,6 @@ public class Snake : MonoBehaviour
     private Vector2Int moveDirection;
     private Vector2Int desiredMoveDirection;
     
-    private bool playerClicked;
     private bool isDead;
     
     private readonly Vector2Int headStartingPos = new Vector2Int(4, 9);
@@ -33,72 +31,42 @@ public class Snake : MonoBehaviour
         Restart();
     }
     
-    public void Restart()
-    {
-        AudioManager.Instance.Play("bg");
-        isDead = false;
-            
-        head.Position = headStartingPos;
-        headReflected.Position = GameBoard.GetReflected(headStartingPos);
-        
-        tail.Restart(head.Position, moveTime);
-        tailReflected.Restart(headReflected.Position, moveTime);
-        
-        moveDirection = Vector2Int.right;
-        desiredMoveDirection = Vector2Int.right;
-        
-        timeTillNextMove = moveTime;
-
-        scoreManager.Restart();
-    }
-
-    
     private void Update()
     {
         if (isDead)
             return;
         
-        
         HandleInput();
-        
-        // move only when players clicked something
-        //if (!playerClicked)
-        //    return;
-            
         HandleMovement();
     }
-
+    
     private void HandleInput()
     {
         bool anyKeyDown = false;
         if (Input.GetKeyDown(KeyCode.UpArrow) && moveDirection != Vector2Int.down)
         {
             desiredMoveDirection = Vector2Int.up;
-            playerClicked = true;
             anyKeyDown = true;
         }
         if (Input.GetKeyDown(KeyCode.DownArrow) && moveDirection != Vector2Int.up)
         {
             desiredMoveDirection = Vector2Int.down;
-            playerClicked = true;
             anyKeyDown = true;
         }
         if (Input.GetKeyDown(KeyCode.RightArrow) && moveDirection != Vector2Int.left)
         {
             desiredMoveDirection = Vector2Int.right;
-            playerClicked = true;
             anyKeyDown = true;
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow) && moveDirection != Vector2Int.right)
         {
             desiredMoveDirection = Vector2Int.left;
-            playerClicked = true;
             anyKeyDown = true;
         }
         if(anyKeyDown)
             AudioManager.Instance.Play("input");
     }
-
+    
     private void HandleMovement()
     {
         timeTillNextMove -= Time.deltaTime;
@@ -117,7 +85,6 @@ public class Snake : MonoBehaviour
             else
             {
                 return;
-                Debug.Log("DOBRY ELESE");
             }
             tail.AddPositionToTail(head.Position);
             tailReflected.AddPositionToTail(headReflected.Position);
@@ -129,9 +96,28 @@ public class Snake : MonoBehaviour
     }
     
     
+    private void Restart()
+    {
+        AudioManager.Instance.Play("bg");
+        isDead = false;
+            
+        head.Position = headStartingPos;
+        headReflected.Position = GameBoard.GetReflected(headStartingPos);
+        
+        tail.Restart(head.Position, moveTime);
+        tailReflected.Restart(headReflected.Position, moveTime);
+        
+        moveDirection = Vector2Int.right;
+        desiredMoveDirection = Vector2Int.right;
+        
+        timeTillNextMove = moveTime;
+
+        scoreManager.Restart();
+    }
+    
     public void OnTileLeave(Vector2Int position)
     {
-        gameBoard.OnSnakeLeave(position);
+        gameBoard.OnSnakeLeaveTile(position);
     }
 
     public void ChangeLength(int amount)
@@ -149,7 +135,6 @@ public class Snake : MonoBehaviour
             Kill();
             return;
         }
-            
         
         tail.Length += amount;
         tailReflected.Length += amount;

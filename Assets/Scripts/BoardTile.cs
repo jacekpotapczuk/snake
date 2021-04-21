@@ -1,10 +1,7 @@
-using System;
 using UnityEngine;
 
 public class BoardTile : MonoBehaviour
 {
-
-    
     [SerializeField] private Transform foodStandardVisual;
 
     [SerializeField] private Transform foodReflectedVisual;

@@ -9,6 +9,7 @@ public class ScoreFileManager : MonoBehaviour
 
     private const string fileName = "snakeSaveFile";
     private string fullFileName;
+    
     private void Awake()
     {
         Instance = this;

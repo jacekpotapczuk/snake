@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -48,12 +47,13 @@ public class GameBoard : MonoBehaviour
         SpawnFood();
     }
 
+    // return false if snake is dead
     public bool OnSnakeEnterTile(Vector2Int position, Snake snake, bool isReflected, Vector2Int lastTailPosition)
     {
         if (!IsPositionCorrect(position))
             return false;
-        BoardTile tile = tiles[position.x, position.y];
         
+        BoardTile tile = tiles[position.x, position.y];
         if (tile.IsBlocked)
         {
             snake.Kill();
@@ -91,7 +91,7 @@ public class GameBoard : MonoBehaviour
         return true;
     }
 
-    public void OnSnakeLeave(Vector2Int position)
+    public void OnSnakeLeaveTile(Vector2Int position)
     {
         if (!IsPositionCorrect(position))
             return;
@@ -145,7 +145,7 @@ public class GameBoard : MonoBehaviour
         randomTile.ContainsFoodReflected = true;
     }
 
-    public void SpawnFoodPoisoned(Vector2Int position)
+    private void SpawnFoodPoisoned(Vector2Int position)
     {
         if (position.x < 0 || position.x >= dim || position.y < 0 || position.y >= dim)
             return;

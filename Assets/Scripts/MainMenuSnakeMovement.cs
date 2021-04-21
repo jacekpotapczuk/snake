@@ -20,9 +20,7 @@ public class MainMenuSnakeMovement : MonoBehaviour
     
     private Vector2Int moveDirection;
 
-    private bool playerClicked;
-
-
+    private const int tailLength = 10;
     
     private void Start()
     {
@@ -31,9 +29,9 @@ public class MainMenuSnakeMovement : MonoBehaviour
         headReflected.Position = GameBoard.GetReflected(headStartingPos);
         
         tail.Restart(head.Position, moveTime);
-        tail.Length = 10;
+        tail.Length = tailLength;
         tailReflected.Restart(headReflected.Position, moveTime);
-        tailReflected.Length = 10;
+        tailReflected.Length = tailLength;
         
         moveDirection = Vector2Int.zero;
     
@@ -55,12 +53,12 @@ public class MainMenuSnakeMovement : MonoBehaviour
             head.Position += moveDirection;
             headReflected.Position -= moveDirection;
 
+            // move through move queue
             int index = (currentMoveIndex) % moves.Length;
             moveDirection = moves[index].move;
             moves[(currentMoveIndex) % moves.Length].currentRepetition += 1;
             
             bool shouldBeNextMove = moves[index].currentRepetition >= moves[index].numberOfRepetitions;
-            //Debug.Log($"Srpawdzenie {moves[index].currentRepetition} i {moves[index].numberOfRepetitions}.");
             if (shouldBeNextMove)
             {
                 currentMoveIndex += 1;
