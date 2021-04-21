@@ -8,14 +8,22 @@
       <e p="Assets" t="Include">
         <e p="Materials" t="Include">
           <e p="Shaders" t="Include">
+            <e p="Gradient.shader" t="Include" />
             <e p="UniformColor.shader" t="Include" />
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="Audio.cs" t="Include" />
+          <e p="AudioManager.cs" t="Include" />
           <e p="BoardTile.cs" t="Include" />
           <e p="GameBoard.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
+          <e p="GameStateController.cs" t="Include" />
           <e p="MainMenu.cs" t="Include" />
+          <e p="MainMenuSnakeMove.cs" t="Include" />
+          <e p="MainMenuSnakeMovement.cs" t="Include" />
+          <e p="ScoreFileManager.cs" t="Include" />
+          <e p="ScoreManager.cs" t="Include" />
           <e p="Snake.cs" t="Include" />
           <e p="SnakeHead.cs" t="Include" />
           <e p="SnakeTail.cs" t="Include" />

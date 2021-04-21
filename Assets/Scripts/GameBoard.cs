@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameBoard : MonoBehaviour
 {
@@ -46,16 +48,17 @@ public class GameBoard : MonoBehaviour
         SpawnFood();
     }
 
-    public void OnSnakeEnterTile(Vector2Int position, Snake snake, bool isReflected, Vector2Int lastTailPosition)
+    public bool OnSnakeEnterTile(Vector2Int position, Snake snake, bool isReflected, Vector2Int lastTailPosition)
     {
         if (!IsPositionCorrect(position))
-            return;
+            return false;
         BoardTile tile = tiles[position.x, position.y];
         
         if (tile.IsBlocked)
         {
-            snake.Restart();
+            snake.Kill();
             Restart();
+            return false;
         }
         tile.IsBlocked = true;
 
@@ -84,7 +87,8 @@ public class GameBoard : MonoBehaviour
         
         if(eatenWrongFood)
             SpawnFoodPoisoned(lastTailPosition);
-        
+
+        return true;
     }
 
     public void OnSnakeLeave(Vector2Int position)
@@ -143,6 +147,8 @@ public class GameBoard : MonoBehaviour
 
     public void SpawnFoodPoisoned(Vector2Int position)
     {
+        if (position.x < 0 || position.x >= dim || position.y < 0 || position.y >= dim)
+            return;
         BoardTile tile = tiles[position.x, position.y];
         
         // make sure that poisoned food doesn't block 
@@ -169,7 +175,4 @@ public class GameBoard : MonoBehaviour
             tile = tiles[Random.Range(1, dim - 1), Random.Range(1, dim - 1)];
         return tile;
     }
-
-    
-
 }

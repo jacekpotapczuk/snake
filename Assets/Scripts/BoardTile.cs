@@ -53,7 +53,8 @@ public class BoardTile : MonoBehaviour
         set
         {
             isBlocked = value;
-            tileBlockedVisual.gameObject.SetActive(value);
+            // uncomment for debugging  purpose. Can be used to show blocked tiles.
+            //tileBlockedVisual.gameObject.SetActive(value);
         }
     }
 

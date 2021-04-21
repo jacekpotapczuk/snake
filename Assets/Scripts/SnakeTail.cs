@@ -66,7 +66,8 @@ public class SnakeTail : MonoBehaviour
 
         while (positions.Count > length && positions.Count > 0)
         {
-            snake.OnTileLeave(positions[0]);
+            if(snake != null)
+                snake.OnTileLeave(positions[0]);
             positions.RemoveAt(0);
         }
         UpdateTrailRenderer();

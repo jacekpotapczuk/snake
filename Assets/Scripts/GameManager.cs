@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
         Instance = this;
         SceneManager.sceneLoaded += OnSceneLoaded;
         
-        LoadScene("Menu");
+        if(SceneManager.sceneCount == 1)
+            LoadScene("Menu");
     }
 
     public void LoadScene(string name)
