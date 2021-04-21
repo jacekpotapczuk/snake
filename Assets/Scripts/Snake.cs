@@ -20,7 +20,8 @@ public class Snake : MonoBehaviour
     private Vector2Int desiredMoveDirection = Vector2Int.right;
 
     private int tailLength;
-    private const int startingLength = 4;
+    private const int startingTailLength = 4;
+    private const int minTailLength = 2;
 
     private List<Vector2Int> tailBoardPositions;
     private List<Vector2Int> tailReflectedBoardPositons;
@@ -74,7 +75,7 @@ public class Snake : MonoBehaviour
             reflectedPosOnBoard -= moveDirection;
             moveDirection = desiredMoveDirection;
             
-            gameBoard.OnSnakeMove(posOnBoard + moveDirection, this);
+            gameBoard.OnSnakeEnter(posOnBoard + moveDirection, this);
             AddTailBoardPosition(posOnBoard);
    
             timeTillNextMove = moveTime + timeTillNextMove;
@@ -149,7 +150,7 @@ public class Snake : MonoBehaviour
         moveDirection = Vector2Int.right;
         timeTillNextMove = moveTime;
         desiredMoveDirection = Vector2Int.right;
-        tailLength = startingLength;
+        tailLength = startingTailLength;
 
         UpdateTailRenderer();
     }
@@ -160,18 +161,19 @@ public class Snake : MonoBehaviour
         UpdateTailRenderer();
     }
 
-    public void DecreaseLength(bool reflected)
+    public void DecreaseLength(int amount)
     {
-        tailLength -= 1;
-        if (tailLength < startingLength)
+        tailLength -= amount;
+        if (tailLength < minTailLength)
             Debug.Log("GAME OVER LENGHT");
         
-        if(reflected)
-            gameBoard.SpawnPoisonedFood(tailReflectedBoardPositons[0]);
-        else
-            gameBoard.SpawnPoisonedFood(tailBoardPositions[0]);
         UpdateTailRenderer();
         
+    }
+
+    public Vector2Int GetLastTailBoardPosition(bool reflectedTail)
+    {
+        return reflectedTail ? tailReflectedBoardPositons[0] : tailBoardPositions[0];
     }
 
 }

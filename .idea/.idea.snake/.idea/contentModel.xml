@@ -12,6 +12,7 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="BoardTile.cs" t="Include" />
           <e p="GameBoard.cs" t="Include" />
           <e p="Snake.cs" t="Include" />
         </e>

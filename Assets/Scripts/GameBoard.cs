@@ -1,83 +1,85 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameBoard : MonoBehaviour
 {
 
-    private bool[,] tiles;
+    private BoardTile[,] tiles;
 
     private const int dim = 20;
-
-    [SerializeField] private Transform foodStandard;
-    [SerializeField] private Transform foodReflected;
     
-    [SerializeField] private Transform foodPoisonedPrefab;
-
-    private List<Vector2Int> poisonedFoodBoardPositions;
+    [SerializeField] private BoardTile tilePrefab;
     
     private void Awake()
     {
-        tiles = new bool[dim, dim];
+        tiles = new BoardTile[dim, dim];
+        for (int x = 0; x < dim; x++)
+        {
+            for (int y = 0; y < dim; y++)
+            {
+                tiles[x, y] = Instantiate(tilePrefab, transform);
+                tiles[x, y].transform.localPosition = new Vector3(x, y, 0f);
+                
+            }
+        }
         Restart();
-
     }
 
-    public bool IsTileBlocked(Vector2Int position)
-    {
-        if (!IsPositionCorrect(position))
-            return true;
-        return tiles[position.x, position.y];
-    }
-
-    // pick up food if on the tile, returns true if there is food, false otherwise
-    // public bool PickUpFoodFrom(Vector2Int position)
-    // {
-    //     if (!IsPositionCorrect(position))
-    //         return false;
-    //     if (!tiles[position.x, position.y].containsFood && !tiles[position.x, position.y].containsreflectedFood)
-    //         return false;
-    //     SpawnFood();
-    //     
-    //     return true;
-    // }
-
-    public void OnSnakeMove(Vector2Int position, Snake snake)
+    public void OnSnakeEnter(Vector2Int position, Snake snake)
     {
         if (!IsPositionCorrect(position))
             return;
-
-        if (tiles[position.x, position.y])
+        BoardTile tile = tiles[position.x, position.y];
+        
+        Vector2Int reflectedPos = GameBoard.GetReflected(position.x, position.y);
+        BoardTile tileReflected = tiles[reflectedPos.x, reflectedPos.y];
+        if (tile.IsBlocked || tileReflected.IsBlocked)
         {
             snake.Restart();
             Restart();
         }
         
-        Vector2Int reflectedPos = GameBoard.GetReflected(position.x, position.y);
+        tile.IsBlocked = true;
+        tileReflected.IsBlocked = true;
 
-        tiles[position.x, position.y] = true;
-        tiles[reflectedPos.x, reflectedPos.y] = true;
-
-        if (position.x == foodStandard.localPosition.x && position.y == foodStandard.localPosition.y)
+        if (tile.ContainsFoodPoisoned)
         {
-            SpawnFood(foodStandard, foodReflected);
+            tile.ContainsFoodPoisoned = false;
+            snake.DecreaseLength(3);
+        }
+        if (tileReflected.ContainsFoodPoisoned)
+        {
+            tileReflected.ContainsFoodPoisoned = false;
+            snake.DecreaseLength(3);
+        }
+        
+
+        if (tile.ContainsFoodStandard)
+        {
+            tile.ContainsFoodStandard = false;
+            SpawnFoodStandard();
             snake.IncreaseLength();
         }
-        else if (position.x == foodReflected.localPosition.x && position.y == foodReflected.localPosition.y)
+        else if (tile.ContainsFoodReflected)
         {
-            SpawnFood(foodReflected, foodStandard);
-            snake.DecreaseLength(false);
+            tile.ContainsFoodReflected = false;
+            SpawnFoodReflected();
+            snake.DecreaseLength(1);
+            SpawnFoodPoisoned(snake.GetLastTailBoardPosition(false));
         }
-        else if (reflectedPos.x == foodReflected.localPosition.x && reflectedPos.y == foodReflected.localPosition.y)
+
+        if (tileReflected.ContainsFoodStandard)
         {
-            SpawnFood(foodReflected, foodStandard);
+            tileReflected.ContainsFoodStandard = false;
+            SpawnFoodStandard();
+            snake.DecreaseLength(1);
+            SpawnFoodPoisoned(snake.GetLastTailBoardPosition(true));
+        }
+        else if (tileReflected.ContainsFoodReflected)
+        {
+            tileReflected.ContainsFoodReflected = false;
+            SpawnFoodReflected();
             snake.IncreaseLength();
         }
-        else if (reflectedPos.x == foodStandard.localPosition.x && reflectedPos.y == foodStandard.localPosition.y)
-        {
-            SpawnFood(foodStandard, foodReflected);
-            snake.DecreaseLength(true);
-        }
-            
     }
 
     public void OnSnakeLeave(Vector2Int position)
@@ -87,8 +89,8 @@ public class GameBoard : MonoBehaviour
         
         Vector2Int reflectedPos = GameBoard.GetReflected(position.x, position.y);
 
-        tiles[position.x, position.y] = false;
-        tiles[reflectedPos.x, reflectedPos.y] = false;
+        tiles[position.x, position.y].IsBlocked = false;
+        tiles[reflectedPos.x, reflectedPos.y].IsBlocked = false;
     }
     
     
@@ -123,45 +125,54 @@ public class GameBoard : MonoBehaviour
         {
             for (int y = 0; y < dim; y++)
             {
-                tiles[x, y] = false;
+                tiles[x, y].IsEmpty = true;
             }
         }
         
-        // set border tiles to occupied
+        // set border tiles to blocked
         for (int i = 0; i < dim; i++)
         {
-            tiles[0, i] = true;
-            tiles[i, 0] = true;
-            tiles[i, dim - 1] = true;
-            tiles[dim - 1, i] = true;
+            tiles[0, i].IsBlocked = true;
+            tiles[i, 0].IsBlocked = true;
+            tiles[i, dim - 1].IsBlocked = true;
+            tiles[dim - 1, i].IsBlocked = true;
         }
-
-        poisonedFoodBoardPositions = new List<Vector2Int>();
 
         SpawnFood();
     }
     
     private void SpawnFood()
     {
-
-        SpawnFood(foodStandard, foodReflected);
-        SpawnFood(foodReflected, foodStandard);
+        SpawnFoodStandard();
+        SpawnFoodReflected();
     }
 
-    private void SpawnFood(Transform current, Transform other)
+    private void SpawnFoodStandard()
     {
-        
-        Vector3 pos = other.localPosition;
-        while (pos == other.localPosition)
-            pos = new Vector3(Random.Range(1, dim - 1), Random.Range(1, dim - 1), 0);
-        
-        current.localPosition = pos;
+        BoardTile randomTile = GetRandomEmptyTile();
+        randomTile.ContainsFoodStandard = true;
+    }
+    
+    private void SpawnFoodReflected()
+    {
+        BoardTile randomTile = GetRandomEmptyTile();
+        randomTile.ContainsFoodReflected = true;
     }
 
-    public void SpawnPoisonedFood(Vector2Int position)
+    public void SpawnFoodPoisoned(Vector2Int position)
     {
-        poisonedFoodBoardPositions.Add(position);
-        Transform t = Instantiate(foodPoisonedPrefab, transform);
-        t.localPosition = new Vector3(position.x, position.y, 0f);
+        tiles[position.x, position.y].ContainsFoodPoisoned = true;
     }
+    
+
+    private BoardTile GetRandomEmptyTile()
+    {
+        BoardTile tile = tiles[0, 0];
+        while(!tile.IsEmpty)
+            tile = tiles[Random.Range(1, dim - 1), Random.Range(1, dim - 1)];
+        return tile;
+    }
+
+    
+
 }
