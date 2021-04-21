@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Snake : MonoBehaviour
@@ -9,6 +9,7 @@ public class Snake : MonoBehaviour
     [SerializeField] private TrailRenderer tailRenderer;
     [SerializeField] private TrailRenderer tailRendererReflected;
 
+    [SerializeField] private TextMeshProUGUI scoreText;
     
     [Tooltip("How long does it take to move one square.")]
     [SerializeField, Range(0.05f, 1f)] private float moveTime = 0.125f;
@@ -20,29 +21,33 @@ public class Snake : MonoBehaviour
     private Vector2Int desiredMoveDirection = Vector2Int.right;
 
     private int tailLength;
-    private const int startingTailLength = 4;
-    private const int minTailLength = 2;
+    private const int startingTailLength = 0;
+    private const int minTailLength = 0;
 
     private List<Vector2Int> tailBoardPositions;
     private List<Vector2Int> tailReflectedBoardPositons;
-   
+
+    private bool playerClicked;
     
     private void Awake()
     {
         Restart();
-        UpdateTailRenderer();
     }
 
     private void UpdateTailRenderer()
     {
-        tailRenderer.time = moveTime * (tailLength - 1);
-        tailRendererReflected.time = moveTime * (tailLength - 1);
+        tailRenderer.time = moveTime * (tailLength);
+        tailRendererReflected.time = moveTime * (tailLength);
     }
 
     private void Update()
     {
 
         HandleInput();
+
+        if (!playerClicked)
+            return;
+            
         HandleMovement();
     }
 
@@ -51,18 +56,22 @@ public class Snake : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow) && moveDirection != Vector2Int.down)
         {
             desiredMoveDirection = Vector2Int.up;
+            playerClicked = true;
         }
         if (Input.GetKeyDown(KeyCode.DownArrow) && moveDirection != Vector2Int.up)
         {
             desiredMoveDirection = Vector2Int.down;
+            playerClicked = true;
         }
         if (Input.GetKeyDown(KeyCode.RightArrow) && moveDirection != Vector2Int.left)
         {
             desiredMoveDirection = Vector2Int.right;
+            playerClicked = true;
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow) && moveDirection != Vector2Int.right)
         {
             desiredMoveDirection = Vector2Int.left;
+            playerClicked = true;
         }
     }
 
@@ -93,7 +102,7 @@ public class Snake : MonoBehaviour
     {
         tailBoardPositions.Add(boardPos);
 
-        while (tailBoardPositions.Count > tailLength)
+        while (tailBoardPositions.Count > tailLength && tailBoardPositions.Count > 0)
         {
             gameBoard.OnSnakeLeave(tailBoardPositions[0]);
             tailBoardPositions.RemoveAt(0);
@@ -101,10 +110,12 @@ public class Snake : MonoBehaviour
         
         tailReflectedBoardPositons.Add(GameBoard.GetReflected(boardPos));
         
-        while (tailReflectedBoardPositons.Count > tailLength)
+        while (tailReflectedBoardPositons.Count > tailLength  && tailReflectedBoardPositons.Count > 0)
         {
             tailReflectedBoardPositons.RemoveAt(0);
         }
+
+        UpdateTailRenderer();
     }
 
     void OnDrawGizmos()
@@ -130,18 +141,16 @@ public class Snake : MonoBehaviour
         
         tailBoardPositions = new List<Vector2Int>();
         tailBoardPositions.Add(new Vector2Int(4, 9));
-        tailBoardPositions.Add(new Vector2Int(3, 9));
-        tailBoardPositions.Add(new Vector2Int(2, 9));
-        tailBoardPositions.Add(new Vector2Int(1, 9));
+        //tailBoardPositions.Add(new Vector2Int(3, 9));
+        //tailBoardPositions.Add(new Vector2Int(2, 9));
+        //tailBoardPositions.Add(new Vector2Int(1, 9));
 
         tailReflectedBoardPositons = new List<Vector2Int>();
         tailReflectedBoardPositons.Add(GameBoard.GetReflected(4, 9));
-        tailReflectedBoardPositons.Add(GameBoard.GetReflected(3, 9));
-        tailReflectedBoardPositons.Add(GameBoard.GetReflected(2, 9));
-        tailReflectedBoardPositons.Add(GameBoard.GetReflected(1, 9));
+        //tailReflectedBoardPositons.Add(GameBoard.GetReflected(3, 9));
+        //tailReflectedBoardPositons.Add(GameBoard.GetReflected(2, 9));
+        //tailReflectedBoardPositons.Add(GameBoard.GetReflected(1, 9));
         
-
-
         // TODO: znalezc sposob na reset renderera
         tailRenderer.time = -1f;
         tailRendererReflected.time = -1f;
@@ -151,6 +160,7 @@ public class Snake : MonoBehaviour
         timeTillNextMove = moveTime;
         desiredMoveDirection = Vector2Int.right;
         tailLength = startingTailLength;
+        scoreText.text = tailLength.ToString();
 
         UpdateTailRenderer();
     }
@@ -159,6 +169,8 @@ public class Snake : MonoBehaviour
     {
         tailLength += 1;
         UpdateTailRenderer();
+        scoreText.text = tailLength.ToString();
+
     }
 
     public void DecreaseLength(int amount)
@@ -168,11 +180,13 @@ public class Snake : MonoBehaviour
             Debug.Log("GAME OVER LENGHT");
         
         UpdateTailRenderer();
-        
+        scoreText.text = tailLength.ToString();
     }
 
     public Vector2Int GetLastTailBoardPosition(bool reflectedTail)
     {
+        if (tailBoardPositions.Count == 0 || tailReflectedBoardPositons.Count == 0)
+            return new Vector2Int(-1, -1);
         return reflectedTail ? tailReflectedBoardPositons[0] : tailBoardPositions[0];
     }
 

@@ -11,6 +11,8 @@ public class BoardTile : MonoBehaviour
 
     [SerializeField] private Transform foodPoisonedVisual;
 
+    [SerializeField] private Transform tileBlockedVisual;
+
     public bool ContainsFoodStandard
     {
         get => containsFoodStandard;
@@ -45,7 +47,17 @@ public class BoardTile : MonoBehaviour
     }
     private bool containsFoodPoisoned;
 
-    public bool IsBlocked { get; set; }
+    public bool IsBlocked
+    {
+        get => isBlocked;
+        set
+        {
+            isBlocked = value;
+            //tileBlockedVisual.gameObject.SetActive(value);
+        }
+    }
+
+    private bool isBlocked;
 
     public bool IsEmpty
     {
