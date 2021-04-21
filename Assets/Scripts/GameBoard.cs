@@ -8,7 +8,7 @@ public class GameBoard : MonoBehaviour
     private const int dim = 20;
     
     [SerializeField] private BoardTile tilePrefab;
-    
+
     private void Awake()
     {
         tiles = new BoardTile[dim, dim];
@@ -18,68 +18,73 @@ public class GameBoard : MonoBehaviour
             {
                 tiles[x, y] = Instantiate(tilePrefab, transform);
                 tiles[x, y].transform.localPosition = new Vector3(x, y, 0f);
-                
             }
         }
         Restart();
     }
+    
+    private void Restart()
+    {
+        // all tiles become unocupied
+        for (int x = 0; x < dim; x++)
+        {
+            for (int y = 0; y < dim; y++)
+            {
+                tiles[x, y].SetEmpty();
+            }
+        }
+        
+        // set border tiles to blocked
+        for (int i = 0; i < dim; i++)
+        {
+            tiles[0, i].IsBlocked = true;
+            tiles[i, 0].IsBlocked = true;
+            tiles[i, dim - 1].IsBlocked = true;
+            tiles[dim - 1, i].IsBlocked = true;
+        }
 
-    public void OnSnakeEnterTile(Vector2Int position, Snake snake)
+        SpawnFood();
+    }
+
+    public void OnSnakeEnterTile(Vector2Int position, Snake snake, bool isReflected, Vector2Int lastTailPosition)
     {
         if (!IsPositionCorrect(position))
             return;
         BoardTile tile = tiles[position.x, position.y];
         
-        Vector2Int reflectedPos = GameBoard.GetReflected(position.x, position.y);
-        BoardTile tileReflected = tiles[reflectedPos.x, reflectedPos.y];
-        if (tile.IsBlocked || tileReflected.IsBlocked)
+        if (tile.IsBlocked)
         {
             snake.Restart();
             Restart();
         }
-        
         tile.IsBlocked = true;
-        tileReflected.IsBlocked = true;
 
+        int reflectedInt = isReflected ? -1 : 1;
+        bool eatenWrongFood = false;
+        
         if (tile.ContainsFoodPoisoned)
         {
             tile.ContainsFoodPoisoned = false;
-            snake.DecreaseLength(3);
+            snake.ChangeLength(-3);
         }
-        if (tileReflected.ContainsFoodPoisoned)
-        {
-            tileReflected.ContainsFoodPoisoned = false;
-            snake.DecreaseLength(3);
-        }
-        
-
-        if (tile.ContainsFoodStandard)
+        else if (tile.ContainsFoodStandard)
         {
             tile.ContainsFoodStandard = false;
             SpawnFoodStandard();
-            snake.IncreaseLength();
+            snake.ChangeLength(reflectedInt);
+            eatenWrongFood = reflectedInt == -1;
         }
         else if (tile.ContainsFoodReflected)
         {
             tile.ContainsFoodReflected = false;
             SpawnFoodReflected();
-            snake.DecreaseLength(1);
-            SpawnFoodPoisoned(snake.GetLastTailPos(false));
+            snake.ChangeLength(-reflectedInt);
+            eatenWrongFood = reflectedInt == 1;
         }
-
-        if (tileReflected.ContainsFoodStandard)
-        {
-            tileReflected.ContainsFoodStandard = false;
-            SpawnFoodStandard();
-            snake.DecreaseLength(1);
-            SpawnFoodPoisoned(snake.GetLastTailPos(true));
-        }
-        else if (tileReflected.ContainsFoodReflected)
-        {
-            tileReflected.ContainsFoodReflected = false;
-            SpawnFoodReflected();
-            snake.IncreaseLength();
-        }
+        
+        if(eatenWrongFood)
+            SpawnFoodPoisoned(lastTailPosition);
+        
     }
 
     public void OnSnakeLeave(Vector2Int position)
@@ -87,7 +92,7 @@ public class GameBoard : MonoBehaviour
         if (!IsPositionCorrect(position))
             return;
         
-        Vector2Int reflectedPos = GameBoard.GetReflected(position.x, position.y);
+        Vector2Int reflectedPos = GetReflected(position.x, position.y);
 
         tiles[position.x, position.y].IsBlocked = false;
         tiles[reflectedPos.x, reflectedPos.y].IsBlocked = false;
@@ -96,7 +101,7 @@ public class GameBoard : MonoBehaviour
     
     public static Vector2Int GetReflected(Vector2Int position)
     {
-        return GameBoard.GetReflected(position.x, position.y);
+        return GetReflected(position.x, position.y);
     }
     
     public static Vector2Int GetReflected(int x, int y)
@@ -118,29 +123,6 @@ public class GameBoard : MonoBehaviour
         return true;
     }
 
-    private void Restart()
-    {
-        // all tiles become unocupied
-        for (int x = 0; x < dim; x++)
-        {
-            for (int y = 0; y < dim; y++)
-            {
-                tiles[x, y].IsEmpty = true;
-            }
-        }
-        
-        // set border tiles to blocked
-        for (int i = 0; i < dim; i++)
-        {
-            tiles[0, i].IsBlocked = true;
-            tiles[i, 0].IsBlocked = true;
-            tiles[i, dim - 1].IsBlocked = true;
-            tiles[dim - 1, i].IsBlocked = true;
-        }
-
-        SpawnFood();
-    }
-    
     private void SpawnFood()
     {
         SpawnFoodStandard();
@@ -161,6 +143,21 @@ public class GameBoard : MonoBehaviour
 
     public void SpawnFoodPoisoned(Vector2Int position)
     {
+        BoardTile tile = tiles[position.x, position.y];
+        
+        // make sure that poisoned food doesn't block 
+        if (tile.ContainsFoodStandard)
+        {
+            tile.ContainsFoodStandard = false;
+            SpawnFoodStandard();
+        }
+        
+        if (tile.ContainsFoodReflected)
+        {
+            tile.ContainsFoodReflected = false;
+            SpawnFoodReflected();
+        }
+        
         tiles[position.x, position.y].ContainsFoodPoisoned = true;
     }
     

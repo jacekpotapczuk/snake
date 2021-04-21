@@ -31,6 +31,7 @@ public class SnakeTail : MonoBehaviour
     {
         trailRenderer = GetComponent<TrailRenderer>();
         positions = new List<Vector2Int>(); // todo: upewnic sie czy potrzebne
+
     }
     
     private void OnDrawGizmos()
@@ -73,7 +74,7 @@ public class SnakeTail : MonoBehaviour
     
     public Vector2Int GetLastPosition()
     {
-        return positions[0];
+        return positions.Count > 0 ? positions[0] : new Vector2Int(-1, -1);
     }
     
     private void UpdateTrailRenderer()

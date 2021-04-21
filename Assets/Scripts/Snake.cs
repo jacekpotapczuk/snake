@@ -19,13 +19,9 @@ public class Snake : MonoBehaviour
     [SerializeField, Range(0.05f, 1f)] private float moveTime = 0.125f;
     private float timeTillNextMove;
     
-    // private Vector2Int headPos;
-    // private Vector2Int headPosReflected;
-    
     private Vector2Int moveDirection = Vector2Int.right;
     private Vector2Int desiredMoveDirection = Vector2Int.right;
     
-
     private bool playerClicked;
 
     private readonly Vector2Int headStartingPos = new Vector2Int(4, 9);
@@ -40,11 +36,11 @@ public class Snake : MonoBehaviour
         head.Position = headStartingPos;
         headReflected.Position = GameBoard.GetReflected(headStartingPos);
         
-        moveDirection = Vector2Int.right;
-        desiredMoveDirection = Vector2Int.right;
-        
         tail.Restart(head.Position, moveTime);
         tailReflected.Restart(headReflected.Position, moveTime);
+        
+        moveDirection = Vector2Int.right;
+        desiredMoveDirection = Vector2Int.right;
         
         timeTillNextMove = moveTime;
         
@@ -100,7 +96,8 @@ public class Snake : MonoBehaviour
             moveDirection = desiredMoveDirection;
             timeTillNextMove = moveTime + timeTillNextMove;
             
-            gameBoard.OnSnakeEnterTile(head.Position + moveDirection, this);
+            gameBoard.OnSnakeEnterTile(head.Position + moveDirection, this, false, tail.GetLastPosition());
+            gameBoard.OnSnakeEnterTile(headReflected.Position - moveDirection, this, true, tailReflected.GetLastPosition());
             
             tail.AddPositionToTail(head.Position);
             tailReflected.AddPositionToTail(headReflected.Position);
@@ -110,34 +107,22 @@ public class Snake : MonoBehaviour
         head.LerpInDirection(moveDirection, t);
         headReflected.LerpInDirection(-moveDirection, t);
     }
-
+    
+    
     public void OnTileLeave(Vector2Int position)
     {
         gameBoard.OnSnakeLeave(position);
     }
 
-    public void IncreaseLength()
+    public void ChangeLength(int amount)
     {
-        tail.Length += 1;
-        tailReflected.Length += 1;
-        scoreText.text = tail.Length.ToString();
-
-    }
-
-    public void DecreaseLength(int amount)
-    {
-        tail.Length -= amount;
-        tailReflected.Length -= amount;
+        tail.Length += amount;
+        tailReflected.Length += amount;
         
         if (tail.Length < 0)
             Debug.Log("GAME OVER LENGHT");
         
         scoreText.text = tail.Length.ToString();
-    }
-
-    public Vector2Int GetLastTailPos(bool reflectedTail)
-    {
-        return reflectedTail ? tailReflected.GetLastPosition() : tail.GetLastPosition();
     }
 
 }

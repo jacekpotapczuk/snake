@@ -59,21 +59,16 @@ public class BoardTile : MonoBehaviour
 
     private bool isBlocked;
 
-    public bool IsEmpty
-    {
-        get
-        {
-            return !IsBlocked && !ContainsFoodStandard && !ContainsFoodReflected && !ContainsFoodPoisoned;
-        }
-        set
-        {
-            IsBlocked = false;
-            ContainsFoodPoisoned = false;
-            ContainsFoodReflected = false;
-            ContainsFoodStandard = false;
-        }
-    } 
+    public bool IsEmpty => !IsBlocked && !ContainsFoodStandard && !ContainsFoodReflected && !ContainsFoodPoisoned;
 
+    public void SetEmpty()
+    {
+        IsBlocked = false;
+        ContainsFoodPoisoned = false;
+        ContainsFoodReflected = false;
+        ContainsFoodStandard = false;
+    }
+    
     private void Awake()
     {
         foodStandardVisual.gameObject.SetActive(false);
