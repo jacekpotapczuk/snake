@@ -128,7 +128,7 @@
       <option name="presentableId" value="Default" />
       <updated>1618932175036</updated>
       <workItem from="1618932181465" duration="30405000" />
-      <workItem from="1618988111574" duration="31904000" />
+      <workItem from="1618988111574" duration="32484000" />
     </task>
     <task id="LOCAL-00001" summary="set up basic project settings and create basic board with snake">
       <created>1618932825008</created>
@@ -207,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619038965545</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="change final build settings">
+      <created>1619039538439</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1619039538439</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -239,17 +246,18 @@
     <MESSAGE value="refactor GameBoard.OnSnakeEnterTile" />
     <MESSAGE value="add main menu, audio, game over screen" />
     <MESSAGE value="clean up code" />
-    <option name="LAST_COMMIT_MESSAGE" value="clean up code" />
+    <MESSAGE value="change final build settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="change final build settings" />
   </component>
   <component name="WindowStateProjectService">
     <state width="498" height="446" key="SwitcherDM" timestamp="1618958673396">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1618958673396" />
-    <state x="759" y="286" key="Vcs.Push.Dialog.v2" timestamp="1619036178316">
+    <state x="759" y="286" key="Vcs.Push.Dialog.v2" timestamp="1619039540523">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="759" y="286" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619036178316" />
+    <state x="759" y="286" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1619039540523" />
     <state x="2679" y="286" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1618964784368" />
   </component>
 </project>
